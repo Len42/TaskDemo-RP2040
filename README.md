@@ -1,3 +1,3 @@
-# _template_RP2040
+# TaskDemo-PiPico
 
-Template project for RP2040 firmware
+Demo of a simple task scheduler for Raspberry Pi Pico
