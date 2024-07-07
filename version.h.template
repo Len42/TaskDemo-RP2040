@@ -1,0 +1,12 @@
+#define VER_MAJOR {verMajor}
+#define VER_MINOR {verMinor}
+#define VER_REVISION {verRevision}
+#define VER_BUILD {verBuild}
+#define VER_COMMIT "{verCommit}"
+#define VER_DEV_BUILD {verIsDevBuild}
+#define VER_STRING "{verString}"
+#define VER_DATESTAMP "{verDatestamp}"
+#define VER_TIMESTAMP "{verTimestamp}"
+
+// Version number for picotool
+bi_decl(bi_program_version_string(VER_STRING))
