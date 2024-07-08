@@ -13,8 +13,6 @@
 
 #include "version.h"
 
-#include <algorithm>
-#include <ranges>
 #include <stdio.h>
 
 #include "utils.h"
@@ -100,11 +98,10 @@ private:
 
 // Task List
 static constexpr auto taskList = Tasks::makeTaskList<
+    //DebugTask,
     LedBlinkTask,
     LedColourTask
-    // TODO: add more tasks here
 >();
-
 
 int main()
 {

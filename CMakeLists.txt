@@ -53,7 +53,7 @@ add_custom_command(
 # Set compiler options
 target_compile_options(TaskDemo PUBLIC "-Wall;-Wextra;-Wconversion;-Wshadow")
 # Save compiler temp files. Assembler output will be in *.s.
-#target_compile_options(TaskDemo PUBLIC "-save-temps")
+target_compile_options(TaskDemo PUBLIC "-save-temps")
 # Hide warnings in Pico SDK files
 set_source_files_properties(
     ${PICO_SDK_PATH}/src/rp2_common/hardware_flash/flash.c

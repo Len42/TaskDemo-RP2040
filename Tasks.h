@@ -62,6 +62,9 @@
 /// Acknowledgements
 /// ----------------
 /// Thanks to Luke Valenty for the slideware: https://youtu.be/fk0ihqOXER8
+
+#include <ranges>
+
 namespace Tasks {
 
 /// @brief  Base class for application-defined tasks
@@ -158,7 +161,7 @@ private:
 template<int NUMTASKS, class TASK_T, class... OTHER_TASKS>
 consteval auto makeTaskListHelper(TaskList<NUMTASKS>& taskList)
 {
-    TaskList<NUMTASKS+1>taskListNew = taskList.add(&taskInstance<TASK_T>);
+    TaskList<NUMTASKS+1> taskListNew = taskList.add(&taskInstance<TASK_T>);
     return makeTaskListHelper<NUMTASKS+1, OTHER_TASKS...>(taskListNew);
 }
 
