@@ -13,8 +13,6 @@
 
 #include "version.h"
 
-#include <stdio.h>
-
 #include "utils.h"
 #include "Tasks.h"
 
@@ -105,10 +103,6 @@ static constexpr auto taskList = Tasks::makeTaskList<
 
 int main()
 {
-    stdio_init_all();
-    sleep_ms(500);
-    printf("\nTaskDemo version %s %s\n", VER_STRING, VER_DATESTAMP);
-
     // Initialize all the Tasks and run them forever
     taskList.initAll();
     while (true) {

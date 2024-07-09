@@ -15,7 +15,6 @@ endif()
 
 project(TaskDemo C CXX ASM)
 
-# TODO: Set the type of the target dev board
 #set(PICO_BOARD "pico")
 set(PICO_BOARD "adafruit_feather_rp2040")
 
@@ -67,14 +66,13 @@ set_source_files_properties(
     COMPILE_FLAGS "-Wno-array-bounds -Wno-stringop-overflow -Wno-conversion -Wno-shadow")
 target_link_options(TaskDemo PRIVATE "LINKER:--no-warn-rwx-segments")
 
-# TODO: Enable stdio via UART and/or USB
+# Enable stdio via UART and/or USB
 #pico_enable_stdio_uart(TaskDemo 1)
-pico_enable_stdio_usb(TaskDemo 1)
+#pico_enable_stdio_usb(TaskDemo 1)
 
 # Default stage-2 boot file (despite what it says in the Adafruit Feather board file)
 set(PICO_DEFAULT_BOOT_STAGE2_FILE "${CMAKE_CURRENT_LIST_DIR}/boot2_w25qs080.S")
 
-# TODO: Add link libraries
 target_link_libraries(TaskDemo pico_stdlib hardware_pio)
 
 # Run executable from RAM instead of flash
