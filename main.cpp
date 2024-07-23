@@ -13,6 +13,7 @@
 
 #include "version.h"
 
+#include <stdio.h>
 #include "utils.h"
 #include "Tasks.h"
 
@@ -95,11 +96,11 @@ private:
 };
 
 // Task List
-static constexpr auto taskList = Tasks::makeTaskList<
+constexpr Tasks::TaskList<
     //DebugTask,
     LedBlinkTask,
     LedColourTask
->();
+> taskList;
 
 int main()
 {
