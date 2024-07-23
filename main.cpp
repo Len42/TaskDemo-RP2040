@@ -13,7 +13,6 @@
 
 #include "version.h"
 
-#include <stdio.h>
 #include "utils.h"
 #include "Tasks.h"
 
