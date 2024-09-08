@@ -68,6 +68,7 @@ template<typename SUB>
 class Task
 {
 public:
+    /// @brief Call the subclass's init() function
     void initImpl()
     {
         subclass()->init();
