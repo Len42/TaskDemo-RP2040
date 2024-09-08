@@ -13,55 +13,53 @@
 /// 
 /// 1. Define each task as a subclass of Tasks::Task like this.
 /// A single instance of this class will be created automatically.
+/// @note This declaration uses the "curiously recurring template pattern".
+/// @see https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern
 /// @code
-/// class ExampleTask : public Tasks::Task
+/// class ExampleTask : public Tasks::Task<ExampleTask>
 /// {
 /// public:
 ///     // Task execution interval in microseconds
-///     unsigned intervalMicros() const override { return 1'000'000; }
+///     unsigned intervalMicros() const { return 1'000'000; }
 /// 
 ///     // Task initialization, called once at program start
-///     void init() override
+///     void init()
 ///     {
 ///         // task initialization code
 ///     }
 /// 
 ///     // Main task function, executed at (approximately) the specified interval
-///     void execute() override
+///     void execute()
 ///     {
 ///         // task main code
 ///     }
 /// };
 /// @endcode
-/// 2. Make a list of all the tasks by declaring a Tasks::TaskList.
+/// 2. Make a list of all the tasks by declaring a specialization of Tasks::TaskList.
 /// Any tasks not currently required (e.g. for debugging) can be commented out
 /// and the unused task code will not be compiled into the executable.
 /// @code
-/// constexpr Tasks::TaskList<
+/// using TaskList = Tasks::TaskList<
 ///     ExampleTask,
 ///     AnotherTask,
 ///     AndAnotherTask
-/// > taskList;
+/// >;
 /// @endcode
 /// 3. In main(), initialize all the tasks and then execute them repeatedly.
 /// @code
 /// int main()
 /// {
 ///     // Initialize all the tasks.
-///     taskList.initAll();
+///     TaskList::initAll();
 ///
 ///     // Execute all the tasks repeatedly, at their specified time intervals.
 ///     while (true) {
-///         taskList.runAll();
+///         TaskList::runAll();
 ///     }
 ///
 ///     return 0;
 /// }
 /// @endcode
-///
-/// Acknowledgements
-/// ----------------
-/// Thanks to Luke Valenty for the slideware: https://youtu.be/fk0ihqOXER8
 
 namespace Tasks {
 
