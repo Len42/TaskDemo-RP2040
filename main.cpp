@@ -17,14 +17,14 @@
 #include "Tasks.h"
 
 // LedBlinkTask: Task to blink an LED on & off
-class LedBlinkTask : public Tasks::Task
+class LedBlinkTask : public Tasks::Task<LedBlinkTask>
 {
 public:
     // Task execution interval in microseconds
-    unsigned intervalMicros() const override { return 500'000; }
+    unsigned intervalMicros() const { return 500'000; }
 
     // Task initialization, called once at program start
-    void init() override
+    void init()
     {
         gpio_init(PICO_DEFAULT_LED_PIN);
         gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
@@ -32,7 +32,7 @@ public:
     }
 
     // Main task function, executed at (approximately) the specified interval
-    void execute() override
+    void execute()
     {
         fLed = !fLed;
         gpio_put(PICO_DEFAULT_LED_PIN, fLed);
@@ -43,14 +43,14 @@ private:
 };
 
 // LedColourTask: Task to colour-cycle an RGB LED
-class LedColourTask : public Tasks::Task
+class LedColourTask : public Tasks::Task<LedColourTask>
 {
 public:
     // Task execution interval in microseconds
-    unsigned intervalMicros() const override { return 10'000; }
+    unsigned intervalMicros() const { return 10'000; }
 
     // Task initialization, called once at program start
-    void init() override
+    void init()
     {
         sm = pio_claim_unused_sm(pio, true);
         uint offset = pio_add_program(pio, &ws2812_program);
@@ -59,7 +59,7 @@ public:
     }
 
     // Main task function, executed at (approximately) the specified interval
-    void execute() override
+    void execute()
     {
         uint8_t n = ++index;
         uint32_t colour;
@@ -95,17 +95,17 @@ private:
 };
 
 // Task List
-constexpr Tasks::TaskList<
+using TaskList = Tasks::TaskList<
     //DebugTask,
     LedBlinkTask,
     LedColourTask
-> taskList;
+>;
 
 int main()
 {
     // Initialize all the Tasks and run them forever
-    taskList.initAll();
+    TaskList::initAll();
     while (true) {
-        taskList.runAll();
+        TaskList::runAll();
     }
 }
