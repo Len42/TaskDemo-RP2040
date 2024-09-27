@@ -69,7 +69,7 @@ class Task
 {
 public:
     /// @brief Call the subclass's init() function
-    void initImpl()
+    void callInit()
     {
         subclass()->init();
     }
@@ -100,7 +100,7 @@ public:
     /// @brief Initialize all the tasks
     static void initAll()
     {
-        ((taskInstance<TASKS>.initImpl()), ...);
+        ((taskInstance<TASKS>.callInit()), ...);
     }
 
     /// @brief Execute all the tasks repeatedly, at their specified time intervals
