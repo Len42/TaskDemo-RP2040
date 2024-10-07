@@ -112,7 +112,7 @@ public:
     // }
 
     /// @brief Initialize all the tasks
-    void initAll() const
+    static void initAll()
     {
         // for (auto&& task : tasks) {
         //     task->init();
@@ -121,7 +121,7 @@ public:
     };
 
     /// @brief Execute all the tasks repeatedly, at their specified time intervals
-    void runAll() const
+    static void runAll()
     {
         absolute_time_t now = get_absolute_time();
         // for (auto&& task : tasks) {
