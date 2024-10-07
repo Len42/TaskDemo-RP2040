@@ -94,10 +94,10 @@ private:
     absolute_time_t timer = from_us_since_boot_constexpr(0);
 };
 
-/// @brief There is one static instance of each subclass of Task
-/// @tparam TASK_T A subclass of Task
-template<typename TASK_T>
-static TASK_T taskInstance;
+// // /// @brief There is one static instance of each subclass of Task
+// // /// @tparam TASK_T A subclass of Task
+// // template<typename TASK_T>
+// // static TASK_T taskInstance;
 
 /// @brief A static list of Task that is initialized at compile time
 /// @tparam ...TASKS List of Task subclasses
@@ -105,32 +105,39 @@ template<typename... TASKS>
 class TaskList
 {
 public:
-    consteval TaskList()
-    {
-        int i = 0;
-        ((tasks[i++] = &taskInstance<TASKS>), ...);
-    }
+    // consteval TaskList()
+    // {
+    //     int i = 0;
+    //     ((tasks[i++] = &taskInstance<TASKS>), ...);
+    // }
 
     /// @brief Initialize all the tasks
     void initAll() const
     {
-        for (auto&& task : tasks) {
-            task->init();
-        }
+        // for (auto&& task : tasks) {
+        //     task->init();
+        // }
+        ((taskInstance<TASKS>.init()), ...);
     };
 
     /// @brief Execute all the tasks repeatedly, at their specified time intervals
     void runAll() const
     {
         absolute_time_t now = get_absolute_time();
-        for (auto&& task : tasks) {
-            task->tick(now);
-        }
+        // for (auto&& task : tasks) {
+        //     task->tick(now);
+        // }
+        ((taskInstance<TASKS>.tick(now)), ...);
     };
 
 private:
-    /// @brief List of Task instances to be executed
-    Task* tasks[sizeof...(TASKS)];
+//    /// @brief List of Task instances to be executed
+//    Task* tasks[sizeof...(TASKS)];
+
+    /// @brief There is one static instance of each subclass of Task
+    /// @tparam TASK_T A subclass of Task
+    template<typename TASK_T>
+    static inline TASK_T taskInstance;
 };
 
 } // namespace Tasks
