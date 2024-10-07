@@ -33,35 +33,31 @@
 ///     }
 /// };
 /// @endcode
-/// 2. Make a list of all the tasks by declaring a Tasks::TaskList.
+/// 2. Make a list of all the tasks by declaring a specialization of Tasks::TaskList.
 /// Any tasks not currently required (e.g. for debugging) can be commented out
 /// and the unused task code will not be compiled into the executable.
 /// @code
-/// constexpr Tasks::TaskList<
+/// using TaskList = Tasks::TaskList<
 ///     ExampleTask,
 ///     AnotherTask,
 ///     AndAnotherTask
-/// > taskList;
+/// >;
 /// @endcode
 /// 3. In main(), initialize all the tasks and then execute them repeatedly.
 /// @code
 /// int main()
 /// {
 ///     // Initialize all the tasks.
-///     taskList.initAll();
+///     TaskList::initAll();
 ///
 ///     // Execute all the tasks repeatedly, at their specified time intervals.
 ///     while (true) {
-///         taskList.runAll();
+///         TaskList::runAll();
 ///     }
 ///
 ///     return 0;
 /// }
 /// @endcode
-///
-/// Acknowledgements
-/// ----------------
-/// Thanks to Luke Valenty for the slideware: https://youtu.be/fk0ihqOXER8
 
 namespace Tasks {
 
@@ -94,46 +90,26 @@ private:
     absolute_time_t timer = from_us_since_boot_constexpr(0);
 };
 
-// // /// @brief There is one static instance of each subclass of Task
-// // /// @tparam TASK_T A subclass of Task
-// // template<typename TASK_T>
-// // static TASK_T taskInstance;
-
 /// @brief A static list of Task that is initialized at compile time
 /// @tparam ...TASKS List of Task subclasses
 template<typename... TASKS>
 class TaskList
 {
 public:
-    // consteval TaskList()
-    // {
-    //     int i = 0;
-    //     ((tasks[i++] = &taskInstance<TASKS>), ...);
-    // }
-
     /// @brief Initialize all the tasks
     static void initAll()
     {
-        // for (auto&& task : tasks) {
-        //     task->init();
-        // }
         ((taskInstance<TASKS>.init()), ...);
-    };
+    }
 
     /// @brief Execute all the tasks repeatedly, at their specified time intervals
     static void runAll()
     {
         absolute_time_t now = get_absolute_time();
-        // for (auto&& task : tasks) {
-        //     task->tick(now);
-        // }
         ((taskInstance<TASKS>.tick(now)), ...);
-    };
+    }
 
 private:
-//    /// @brief List of Task instances to be executed
-//    Task* tasks[sizeof...(TASKS)];
-
     /// @brief There is one static instance of each subclass of Task
     /// @tparam TASK_T A subclass of Task
     template<typename TASK_T>

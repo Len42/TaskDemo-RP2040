@@ -94,12 +94,6 @@ private:
     }
 };
 
-// Task List
-// constexpr Tasks::TaskList<
-//     //DebugTask,
-//     LedBlinkTask,
-//     LedColourTask
-// > taskList;
 using TaskList = Tasks::TaskList<
     //DebugTask,
     LedBlinkTask,
