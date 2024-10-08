@@ -68,12 +68,6 @@ template<typename SUB>
 class Task
 {
 public:
-    /// @brief Call the subclass's init() function
-    void callInit()
-    {
-        subclass()->init();
-    }
-
     /// @brief If it's time to call execute(), do so
     /// @param now Current time
     void tick(absolute_time_t now)
@@ -100,7 +94,7 @@ public:
     /// @brief Initialize all the tasks
     static void initAll()
     {
-        ((taskInstance<TASKS>.callInit()), ...);
+        ((taskInstance<TASKS>.init()), ...);
     }
 
     /// @brief Execute all the tasks repeatedly, at their specified time intervals
