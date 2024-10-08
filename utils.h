@@ -13,7 +13,7 @@ constexpr uint64_t to_us_since_boot_constexpr(absolute_time_t t)
 // constexpr version of from_us_since_boot()
 constexpr absolute_time_t from_us_since_boot_constexpr(uint64_t t)
 {
-    absolute_time_t tRet;
+    absolute_time_t tRet = 0;
 #ifdef NDEBUG
     tRet = t;
 #else
