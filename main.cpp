@@ -94,18 +94,17 @@ private:
     }
 };
 
-// Task List
-constexpr Tasks::TaskList<
+using TaskList = Tasks::TaskList<
     //DebugTask,
     LedBlinkTask,
     LedColourTask
-> taskList;
+>;
 
 int main()
 {
     // Initialize all the Tasks and run them forever
-    taskList.initAll();
+    TaskList::initAll();
     while (true) {
-        taskList.runAll();
+        TaskList::runAll();
     }
 }
